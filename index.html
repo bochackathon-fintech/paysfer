@@ -238,57 +238,6 @@
 	 	});
 	});	
 
-		$('#btn-transfer-seller').on('click',function()
-		{
-			//var x = document.getElementById("amount").value;
-
-			$.ajax({
-				cache: false,
-					url: "http://api.bocapi.net/v1/api/banks/bda8eb884efcef7082792d45/accounts/b68e716c030d67ceb7e7a34f/make-transaction",
-					beforeSend: function(xhrObj){
-						// Request headers
-						xhrObj.setRequestHeader("Track-ID","4a9c41d5be483dd5bbbbaaaa");
-						xhrObj.setRequestHeader("Auth-Provider-Name", document.getElementById("accNumber").value.toString());
-						xhrObj.setRequestHeader("Auth-ID","123456789");
-						xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","8da4cfbc226f472a9186fc9cf746e04c");
-						xhrObj.setRequestHeader("Content-Type","application/json");
-						//xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
-					},
-					type: "POST",
-					// Request body 
-					data: '{"description": "EMVASMA 12 EUROS","challenge_type": "string","from": {"account_id": "b68e716c030d67ceb7e7a34f","bank_id": "bda8eb884efcef7082792d45"},"to": {"account_id": "556e140050aaa85e4a5b7429","bank_id": "bda8eb884efcef7082792d45"},"value": {"currency": "EUR","amount":'+ document.getElementById("amount").value +'}}',
-					/*data: {"description": "test metafora","challenge_type": "string","from": {"account_id": "bda8eb884efcea209b2a6240","bank_id": "bda8eb884efcef7082792d45"},"to": {"account_id": "556e140050aaa85e4a5b7429","bank_id": "bda8eb884efcef7082792d45"},"value": {"currency": "EUR","amount": 12.00}},*/
-				})
-				.done(function(data) {
-
-					$('#accTransferOK').html("<div class='alert alert-success'>"+'transferring ... please wait'+"</div>");
-					$('#accTransferOK').show();
-					$("#accTransferOK").fadeTo(2000, 500).slideUp(500, function()
-					{
-						//$("#accTransferOK").slideUp(3000);					
-						swal({
-							title: 'success',
-							text: 'your balance is 200 ether',
-							timer: 2000,
-							type: 'success',
-							showConfirmButton: false
-						})
-					});
-					
-					setTimeout( getNewBalance, 3000);	
-
-				})
-				.fail(function() {
-					$('#accTransferError').html("<div class='alert alert-error'>"+'oops --- transfer error'+"</div>");
-					$('#accTransferError').show();
-					$("#accTransferError").slideUp(3000);					
-				});
-
-
-
-	 	});
-	});	
-
 function getNewBalance()
 {
 
